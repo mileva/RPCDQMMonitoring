@@ -171,6 +171,10 @@ class MuonSegmentEff : public edm::EDAnalyzer {
       MonitorElement * hGlobalResClu3R2A;
 
       MonitorElement * hResRE4;
+      MonitorElement * hResRE4Ri2;
+      MonitorElement * hResRE4Ri3;
+      MonitorElement * hResRE4Se3_5;
+
 
  private:
       std::vector<std::map<RPCDetId, int> > counter;

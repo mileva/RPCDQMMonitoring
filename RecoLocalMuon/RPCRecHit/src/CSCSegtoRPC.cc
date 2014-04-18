@@ -11,6 +11,9 @@
 #include <DataFormats/RPCRecHit/interface/RPCRecHitCollection.h>
 #include <RecoLocalMuon/RPCRecHit/interface/CSCSegtoRPC.h>
 
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "TH1F.h"
+
 ObjectMapCSC* ObjectMapCSC::mapInstance = NULL;
 
 ObjectMapCSC* ObjectMapCSC::GetInstance(const edm::EventSetup& iSetup){
@@ -41,9 +44,11 @@ ObjectMapCSC::ObjectMapCSC(const edm::EventSetup& iSetup){
           int cscstation=station;
 	  RPCGeomServ rpcsrv(rpcId);
 	  int rpcsegment = rpcsrv.segment();
+
+//Add RE4
 	  int cscchamber = rpcsegment; //FIX THIS ACCORDING TO RPCGeomServ::segment()Definition
 //          if((station==2||station==3)&&ring==3){//Adding Ring 3 of RPC to the CSC Ring 2
-          if((station==2||station==3||station==4)&&ring==3){//Adding Ring 3 of RPC to the CSC Ring 2
+          if((station==2||station==3||station==4)&&ring==3){
             cscring = 2;
           }
 	  CSCStationIndex ind(region,cscstation,cscring,cscchamber);
@@ -65,7 +70,8 @@ CSCSegtoRPC::CSCSegtoRPC(edm::Handle<CSCSegmentCollection> allCSCSegments, const
   iSetup.get<MuonGeometryRecord>().get(rpcGeo);
   iSetup.get<MuonGeometryRecord>().get(cscGeo);
   
-  MaxD=80.;
+//  MaxD=80.;
+//  MaxD=120.;//test for cosmics
 
   if(debug) std::cout<<"CSC \t Number of CSC Segments in this event = "<<allCSCSegments->size()<<std::endl;
 
@@ -73,7 +79,7 @@ CSCSegtoRPC::CSCSegtoRPC(edm::Handle<CSCSegmentCollection> allCSCSegments, const
 
   if(allCSCSegments->size()==0){
     if(debug) std::cout<<"CSC 0 segments skiping event"<<std::endl;
-  }else {
+    }else {
     std::map<CSCDetId,int> CSCSegmentsCounter;
     CSCSegmentCollection::const_iterator segment;
       
@@ -82,7 +88,7 @@ CSCSegtoRPC::CSCSegtoRPC(edm::Handle<CSCSegmentCollection> allCSCSegments, const
     for (segment = allCSCSegments->begin();segment!=allCSCSegments->end(); ++segment){
       CSCSegmentsCounter[segment->cscDetId()]++;
       segmentsInThisEventInTheEndcap++;
-    }    
+    }
       
     if(debug) std::cout<<"CSC \t loop over all the CSCSegments "<<std::endl;
     for (segment = allCSCSegments->begin();segment!=allCSCSegments->end(); ++segment){
@@ -92,7 +98,11 @@ CSCSegtoRPC::CSCSegtoRPC(edm::Handle<CSCSegmentCollection> allCSCSegments, const
       if(debug) std::cout<<"CSC \t \t Number of segments in this CSC = "<<CSCSegmentsCounter[CSCId]<<std::endl;
       if(debug) std::cout<<"CSC \t \t Is the only one in this CSC? is not ind the ring 1 or station 4? Are there more than 2 segments in the event?"<<std::endl;
 
+//  std::cout << "CSCId\t" << CSCId << "\tsegm\t" << CSCSegmentsCounter[CSCId] << std::endl;
+
       //if(CSCSegmentsCounter[CSCId]==1 && CSCId.station()!=4 && CSCId.ring()!=1 && allCSCSegments->size()>=2){
+
+//Add RE4
       if(CSCSegmentsCounter[CSCId]==1 && CSCId.ring()!=1){
 //      if(CSCSegmentsCounter[CSCId]==1 && CSCId.station()!=4 && CSCId.ring()!=1){
 	if(debug) std::cout<<"CSC \t \t yes"<<std::endl;
@@ -109,10 +119,12 @@ CSCSegtoRPC::CSCSegtoRPC(edm::Handle<CSCSegmentCollection> allCSCSegments, const
 	LocalVector segmentDirection=segment->localDirection();
 	float dz=segmentDirection.z();
 
-	if(debug) std::cout<<"CSC \t \t \t Information about the segment" 
-			   <<"RecHits ="<<segment->nRecHits()
-			   <<"Angle ="<<acos(dz)*180/3.1415926<<std::endl;
-		      
+	if(debug)  std::cout<<"CSC \t \t \t Information about the segment" 
+                           <<"\tRecHits\t"<<segment->nRecHits()
+			   <<"\tAngle\t"<<acos(dz)*180/3.1415926 << "\tdimension\t" << segment->dimension() <<std::endl;
+
+       
+	      
 	if(debug) std::cout<<"CSC \t \t Is a good Segment? dim = 4, 4 <= nRecHits <= 10 Incident angle int range 45 < "<<acos(dz)*180/3.1415926<<" < 135? "<<std::endl;
 
 	if(segment->dimension()==4 && segment->nRecHits()>=5){
@@ -148,6 +160,7 @@ CSCSegtoRPC::CSCSegtoRPC(edm::Handle<CSCSegmentCollection> allCSCSegments, const
 
 	  if(debug) std::cout<<"CSC \t \t Printing The Id"<<TheId<<std::endl;
 
+//add RE4
 //	  if(rpcRing!=1&&rpcStation!=4){//They don't exist!
 	  if(rpcRing!=1){//They don't exist!
 	  
@@ -240,6 +253,9 @@ CSCSegtoRPC::CSCSegtoRPC(edm::Handle<CSCSegmentCollection> allCSCSegments, const
 
 	      if(debug) std::cout<<"CSC \t \t \t Is the distance of extrapolation less than MaxD? ="<<extrapolatedDistance<<"cm"<<" MaxD="<<MaxD<<"cm"<<std::endl;
 	  
+//              if (rpcId.station() == 4) 
+//              std::cout << "extrapolatedDistance\t" << extrapolatedDistance << std::endl;
+
 	      if(extrapolatedDistance<=MaxD){ 
 
 		if(debug) std::cout<<"CSC \t \t \t yes"<<std::endl;

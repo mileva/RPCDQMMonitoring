@@ -6,7 +6,6 @@
 #include "DataFormats/RPCRecHit/interface/RPCRecHit.h"
 #include "DataFormats/RPCRecHit/interface/RPCRecHitCollection.h"
 
-
 class CSCSegtoRPC {
 public:
   explicit CSCSegtoRPC(edm::Handle<CSCSegmentCollection> allCSCSegments,const edm::EventSetup& iSetup, const edm::Event& iEvent, bool debug, double eyr);
@@ -18,6 +17,7 @@ private:
   edm::OwnVector<RPCRecHit> RPCPointVector;
   bool inclcsc;
   double MaxD;
+
 };
 
 class CSCStationIndex{
@@ -61,6 +61,7 @@ public:
   ObjectMapCSC(const edm::EventSetup& iSetup);
 private:
   static ObjectMapCSC* mapInstance;
+
 }; 
 
 #endif

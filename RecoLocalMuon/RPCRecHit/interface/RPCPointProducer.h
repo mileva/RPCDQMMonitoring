@@ -15,6 +15,7 @@
 #include "RecoLocalMuon/RPCRecHit/interface/CSCSegtoRPC.h"
 #include "RecoLocalMuon/RPCRecHit/interface/TracktoRPC.h" 
 
+
 //
 // class decleration
 //
@@ -42,5 +43,6 @@ class RPCPointProducer : public edm::EDProducer {
       edm::ParameterSet trackTransformerParam;
       edm::ParameterSet serviceParameters;
       // ----------member data ---------------------------
+
 };
 

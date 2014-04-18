@@ -13,7 +13,7 @@ process.load("DQMServices.Components.MEtoEDMConverter_cfi")
 process.load("DQMServices.Core.DQM_cfg")
 
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
-from Configuration.AlCa.autoCond import autoCond
+#from Configuration.AlCa.autoCond import autoCond
 #process.GlobalTag.globaltag = autoCond['mc']
 process.GlobalTag.globaltag = 'GR_P_V44::All'#'MC_70_V4::All'#'GR_E_V37::All'#'GR_P_V32::All'#START50_V14::All'
 
@@ -34,28 +34,119 @@ process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(-1)
 )
 process.source = cms.Source("PoolSource",
-   # fileNames = cms.untracked.vstring('file:/afs/cern.ch/user/p/piet/work/Analysis/CMSSW_7_0_0/src/MyCmsDriverCommands/SingleMuPt10_2015_cfi_RECO_50evts.root')
+
    fileNames = cms.untracked.vstring(
-#'file:/afs/cern.ch/user/p/piet/work/Analysis/CMSSW_7_0_0/src/MyCmsDriverCommands/SingleMuPt10_2015_cfi_RECO_nobadcsc.root'
-#'file:/afs/cern.ch/work/a/aocampor/public/AGR_v2/886/Tree_886_1.root'
+#MC
 #'root://eoscms//eos/cms/store/user/mileva/grApril/SingleMuPt10_2015_cfi_RECO_nobadcsc.root'
 
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/886/00000/0C83F675-3BC0-E311-AF86-02163E00B05B.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/737/00000/BE7647E3-3BC0-E311-A825-02163E00C4FC.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/848/00000/BEF94C1A-21C1-E311-96C5-02163E00E621.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/854/00000/F41019F8-29C1-E311-A840-02163E00E610.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/3EE3399E-7DC1-E311-9DFF-02163E00CD88.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/88789BF4-8BC1-E311-BA12-02163E00E64D.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/A60449D9-8BC1-E311-8267-02163E00F36F.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/B03F65EA-78C1-E311-B9B1-0025904B2018.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/B4B60B29-8CC1-E311-ADB7-02163E00E656.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/C26CC6D2-86C1-E311-9860-02163E00E770.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/C2EEF4E4-78C1-E311-A372-002590494DD2.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/C669288D-7DC1-E311-B4B3-02163E00F1E5.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/D4B0C225-D7C1-E311-96AC-02163E00E674.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/F47B6647-7CC1-E311-9EE3-02163E00EA50.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/F6585DE4-8BC1-E311-802E-02163E00E650.root',
-'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/886/00000/0C83F675-3BC0-E311-AF86-02163E00B05B.root'
+#data from eos
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/886/00000/0C83F675-3BC0-E311-AF86-02163E00B05B.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/737/00000/BE7647E3-3BC0-E311-A825-02163E00C4FC.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/848/00000/BEF94C1A-21C1-E311-96C5-02163E00E621.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/854/00000/F41019F8-29C1-E311-A840-02163E00E610.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/3EE3399E-7DC1-E311-9DFF-02163E00CD88.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/88789BF4-8BC1-E311-BA12-02163E00E64D.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/A60449D9-8BC1-E311-8267-02163E00F36F.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/B03F65EA-78C1-E311-B9B1-0025904B2018.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/B4B60B29-8CC1-E311-ADB7-02163E00E656.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/C26CC6D2-86C1-E311-9860-02163E00E770.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/C2EEF4E4-78C1-E311-A372-002590494DD2.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/C669288D-7DC1-E311-B4B3-02163E00F1E5.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/D4B0C225-D7C1-E311-96AC-02163E00E674.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/F47B6647-7CC1-E311-9EE3-02163E00EA50.root',
+#'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/878/00000/F6585DE4-8BC1-E311-802E-02163E00E650.root'
+##'root://eoscms//eos/cms/store/data/Commissioning2014/Cosmics/RECO/PromptReco-v1/000/220/886/00000/0C83F675-3BC0-E311-AF86-02163E00B05B.root'
+
+#data skim from Alberto
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220737_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220848_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220854_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220855_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220878_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220878_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220878_3.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220878_4.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220878_5.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220878_6.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220885_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220885_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220886_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220889_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220891_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220896_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220896_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220896_3.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220896_4.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220900_1.root',
+#'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220909_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220935_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220948_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220960_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220960_10.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220960_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220960_3.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220960_4.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220960_5.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220960_6.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220960_7.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220960_8.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220960_9.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220963_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220965_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220966_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220966_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220966_3.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220969_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220987_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220987_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220987_3.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220987_4.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_220987_5.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221001_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221027_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221036_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221043_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221073_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221083_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221083_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221083_3.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221083_4.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221086_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221086_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221104_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221104_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_10.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_11.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_3.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_4.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_5.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_6.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_7.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_8.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221113_9.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221120_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221121_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221122_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221136_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221139_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221139_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221144_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221144_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221144_3.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221150_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221153_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221164_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221198_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221215_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221215_2.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221227_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221237_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221238_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221239_1.root',
+'root://eoscms//eos/cms/store/group/comm_rpc/LS-I/AGR/Tree_221240_1.root'
+
 
 
 )
@@ -78,8 +169,8 @@ process.rpcPointProducer = cms.EDProducer('RPCPointProducer',
   rangestrips = cms.untracked.double(4.),
   rangestripsRB4 = cms.untracked.double(4.),
   MinCosAng = cms.untracked.double(0.85),
-  MaxD = cms.untracked.double(80.0),
-  MaxDrb4 = cms.untracked.double(150.0),
+  MaxD = cms.untracked.double(80.0),	#for CSC
+  MaxDrb4 = cms.untracked.double(150.0), #for DT
   ExtrapolatedRegion = cms.untracked.double(0.6), #in stripl/2 in Y and stripw*nstrips/2 in X
   # cscSegments = cms.InputTag('dTandCSCSegmentsinTracks','SelectedCscSegments','OwnParticles'),
   # dt4DSegments = cms.InputTag('dTandCSCSegmentsinTracks','SelectedDtSegments','OwnParticles'),
